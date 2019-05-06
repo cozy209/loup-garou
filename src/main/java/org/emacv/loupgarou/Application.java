@@ -1,27 +1,23 @@
 package org.emacv.loupgarou;
 
+import lombok.Data;
 import org.emacv.loupgarou.personnages.LoupGarou;
 import org.emacv.loupgarou.personnages.Personnage;
 import org.emacv.loupgarou.personnages.Villageois;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.logging.Logger;
 
-
+@Data
 public class Application {
 
-    private static ArrayList<String> idJoueursDistribues = new ArrayList<String>();
-    private static ArrayList<Personnage> personnages = new ArrayList<Personnage>();
-    private static Random rand = new Random();
-    private static int nbLoups = 2;
-    private static int nbVillageois = 4;
+    private ArrayList<Integer> idJoueursDistribues = new ArrayList<Integer>();
+    private ArrayList<Personnage> personnages = new ArrayList<Personnage>();
+    private Random rand = new Random();
+    private int nbLoups = 2;
+    private int nbVillageois = 4;
 
-    public static void main(String[] args) {
-        init();
-    }
-
-    private static void init(){
+    public void init(){
 
         int[] idJoueur = {1,2,3,4,5,6};
 
@@ -38,7 +34,7 @@ public class Application {
 
     }
 
-    private static LoupGarou creerLoup(int[] idJoueur) {
+    public LoupGarou creerLoup(int[] idJoueur) {
 
         LoupGarou loupGarou = null;
         int deltSize = idJoueursDistribues.size();
@@ -47,7 +43,7 @@ public class Application {
 
             int idPerso = idJoueur[rand.nextInt(6)];
 
-            if (!idJoueursDistribues.contains(idPerso + "")) {
+            if (!idJoueursDistribues.contains(idPerso)) {
 
                 if (!personnages.isEmpty()) {
                     loupGarou = new LoupGarou(idPerso, personnages.get(personnages.size() - 1));
@@ -57,14 +53,14 @@ public class Application {
                     System.out.println(idPerso + " : " + loupGarou.getClass());
                 }
 
-                idJoueursDistribues.add(idPerso + "");
+                idJoueursDistribues.add(idPerso);
             }
         }
 
         return loupGarou;
     }
 
-    private static Villageois creerVillageois(int[] idJoueur) {
+    public Villageois creerVillageois(int[] idJoueur) {
 
         Villageois villageois = null;
         int deltSize = idJoueursDistribues.size();
@@ -73,7 +69,7 @@ public class Application {
 
             int idPerso = idJoueur[rand.nextInt(6)];
 
-            if (!idJoueursDistribues.contains(idPerso + "")) {
+            if (!idJoueursDistribues.contains(idPerso)) {
 
                 if (!personnages.isEmpty()) {
                     villageois = new Villageois(idPerso, personnages.get(personnages.size() - 1));
@@ -83,7 +79,7 @@ public class Application {
                     System.out.println(idPerso + " : " + villageois.getClass());
                 }
 
-                idJoueursDistribues.add(idPerso + "");
+                idJoueursDistribues.add(idPerso);
             }
         }
 
