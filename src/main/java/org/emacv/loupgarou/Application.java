@@ -16,7 +16,7 @@ public class Application {
     private int nbLoups = 2;
     private int nbJoueurs = 6;
 
-    public static void run(){
+    public void run(){
         this.initClients();
         this.setPersonnages();
         this.printClients();
@@ -37,7 +37,7 @@ public class Application {
 
     public void printClients(){
         for(Client cli: clients){
-            log.debug(cli);
+            log.debug(cli.toString());
         }
     }
 
@@ -47,10 +47,10 @@ public class Application {
         Collections.shuffle(this.clients);
 
         for(int i=0; i<this.nbLoups; i++){
-            this.clients.get(i).setPersonnage(new LoupGarou())
+            this.clients.get(i).setPersonnage(new LoupGarou());
         }
         for(int i=this.nbLoups; i<this.nbJoueurs; i++){
-            this.clients.get(i).setPersonnage(new Villageois())
+            this.clients.get(i).setPersonnage(new Villageois());
         }
 
         Collections.shuffle(this.clients);
