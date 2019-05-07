@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 public class ApplicationTest {
 
     @Test
-    public void initTest(){
+    private void initTest(){
         Application application = new Application();
 
         application.init();
