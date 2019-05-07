@@ -4,14 +4,13 @@ import javax.swing.*;
 
 public class LoupGarou extends Personnage {
 
-    private ImageIcon carte;
-
-    public LoupGarou(int idPerso, Personnage suivant) {
-        super(idPerso,suivant);
-        this.carte = new ImageIcon("loup-garou.png");
+    // Attribute hidding, à voir pour faire ça plus propre
+    // ça devrait etre des attributs de classe ?
+    public String getName(){
+        return("Loup-Garou");
     }
 
-    public ImageIcon getCarte() {
-        return carte;
+    public String getIconPath(){
+        return("loup-garou.png");
     }
 }

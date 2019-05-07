@@ -1,15 +1,18 @@
 package org.emacv.loupgarou.personnages;
 
-
 import javax.swing.*;
 
-public class Personnage {
+abstract public class Personnage {
 
-    private Personnage suivant;
-    private int idPerso;
+    abstract String getIconPath();
+    abstract String getName();
 
-    public Personnage(int idPerso, Personnage suivant) {
-        this.idPerso = idPerso;
-        this.suivant = suivant;
+    public ImageIcon getImageIcon(){
+        return(new ImageIcon(this.getIconPath()));
+    }
+
+    @Override
+    public String toString(){
+        return(this.getName());
     }
 }

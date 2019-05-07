@@ -1,5 +1,7 @@
 package org.emacv.loupgarou;
 
+import org.emacv.loupgarou.personnages.Personnage;
+
 public class Client {
 
     private Integer id;
@@ -13,10 +15,10 @@ public class Client {
 
     @Override
     public String toString() {
-        return String.format("%s -> %s", this.pseudo, this.card);
+        return String.format("%s -> %s", this.pseudo, this.personnage);
     }
 
-    public void setCard(Card card){
-        this.card = card;
+    public void setPersonnage(Personnage personnage){
+        this.personnage = personnage;
     }
 }

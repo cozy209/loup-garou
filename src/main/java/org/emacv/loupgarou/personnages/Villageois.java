@@ -4,14 +4,11 @@ import javax.swing.*;
 
 public class Villageois extends Personnage {
 
-     private ImageIcon carte;
-
-    public Villageois(int idPerso, Personnage suivant) {
-        super(idPerso,suivant);
-        this.carte = new ImageIcon("villageois.png");
+    public String getName(){
+        return("Villageois");
     }
 
-    public ImageIcon getCarte() {
-        return carte;
+    public String getIconPath(){
+        return("villageois.png");
     }
 }
