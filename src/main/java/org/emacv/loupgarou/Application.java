@@ -2,94 +2,63 @@ package org.emacv.loupgarou;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.emacv.loupgarou.personnages.LoupGarou;
-import org.emacv.loupgarou.personnages.Personnage;
-import org.emacv.loupgarou.personnages.Villageois;
+import org.emacv.loupgarou.personnages.*;
 
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Collections;
 
 @Slf4j
 @Data
 public class Application {
-// Bonjour
-    private static ArrayList<Integer> idJoueursDistribues = new ArrayList<Integer>();
-    private static ArrayList<Personnage> personnages = new ArrayList<Personnage>();
-    private static Random rand = new Random();
-    private static int nbLoups = 2;
-    private static int nbVillageois = 4;
 
-    public static void init(){
+    private ArrayList<Client> clients = new ArrayList<Client>();
 
-        int[] idJoueur = {1,2,3,4,5,6};
+    private int nbLoups = 2;
+    private int nbJoueurs = 6;
 
-        for (int i = 0; i < nbLoups; i++) {
-            personnages.add(creerLoup(idJoueur));
-        }
-        for (int i = 0; i < nbVillageois; i++) {
-            personnages.add(creerVillageois(idJoueur));
-        }
-
-        for (Personnage personnage: personnages) {
-            log.info(""+personnage.getClass());
-        }
+    public static void run(){
+        this.initClients();
+        this.setPersonnages();
+        this.printClients();
 
     }
 
-    public static LoupGarou creerLoup(int[] idJoueur) {
-
-        LoupGarou loupGarou = null;
-        int deltSize = idJoueursDistribues.size();
-
-        while (idJoueursDistribues.size() == deltSize) {
-
-            int idPerso = idJoueur[rand.nextInt(6)];
-
-            if (!idJoueursDistribues.contains(idPerso)) {
-
-                if (!personnages.isEmpty()) {
-                    loupGarou = new LoupGarou(idPerso, personnages.get(personnages.size() - 1));
-                    log.info(idPerso + " : " + loupGarou.getClass());
-                } else {
-                    loupGarou = new LoupGarou(idPerso, null);
-                    log.info(idPerso + " : " + loupGarou.getClass());
-                }
-
-                idJoueursDistribues.add(idPerso);
-            }
+    public void initClients(){
+        // Initialisation des clients à la main pour l'instant
+        for(Integer i=0; i<nbJoueurs;i++){
+            // Pour l'instant le nom et le pseudo sont les mêmes
+            this.addClient(i, i.toString());
         }
-
-        return loupGarou;
     }
 
-    public static Villageois creerVillageois(int[] idJoueur) {
+    public void addClient(Integer id, String pseudo){
+        this.clients.add(new Client(id, pseudo));
+    }
 
-        Villageois villageois = null;
-        int deltSize = idJoueursDistribues.size();
+    public void printClients(){
+        for(Client cli: clients){
+            log.debug(cli);
+        }
+    }
 
-        while (idJoueursDistribues.size() == deltSize) {
+    public void setPersonnages(){
+        // TODO : A refaire proprement pour pouvoir prendre en compte les autres cartes
 
-            int idPerso = idJoueur[rand.nextInt(6)];
+        Collections.shuffle(this.clients);
 
-            if (!idJoueursDistribues.contains(idPerso)) {
-
-                if (!personnages.isEmpty()) {
-                    villageois = new Villageois(idPerso, personnages.get(personnages.size() - 1));
-                    log.info(idPerso + " : " + villageois.getClass());
-                } else {
-                    villageois = new Villageois(idPerso, null);
-                    log.info(idPerso + " : " + villageois.getClass());
-                }
-
-                idJoueursDistribues.add(idPerso);
-            }
+        for(int i=0; i<this.nbLoups; i++){
+            this.clients.get(i).setPersonnage(new LoupGarou())
+        }
+        for(int i=this.nbLoups; i<this.nbJoueurs; i++){
+            this.clients.get(i).setPersonnage(new Villageois())
         }
 
-        return villageois;
+        Collections.shuffle(this.clients);
+
     }
 
     public static void main(String[] args) {
-        init();
+        new Application().run();
     }
 
 }
