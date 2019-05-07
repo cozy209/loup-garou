@@ -12,7 +12,7 @@ import java.util.Random;
 @Slf4j
 @Data
 public class Application {
-
+// Bonjour
     private static ArrayList<Integer> idJoueursDistribues = new ArrayList<Integer>();
     private static ArrayList<Personnage> personnages = new ArrayList<Personnage>();
     private static Random rand = new Random();
