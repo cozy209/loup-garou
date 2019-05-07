@@ -1,6 +1,7 @@
 package org.emacv.loupgarou;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.emacv.loupgarou.personnages.LoupGarou;
 import org.emacv.loupgarou.personnages.Personnage;
 import org.emacv.loupgarou.personnages.Villageois;
@@ -8,16 +9,17 @@ import org.emacv.loupgarou.personnages.Villageois;
 import java.util.ArrayList;
 import java.util.Random;
 
+@Slf4j
 @Data
 public class Application {
 
-    private ArrayList<Integer> idJoueursDistribues = new ArrayList<Integer>();
-    private ArrayList<Personnage> personnages = new ArrayList<Personnage>();
-    private Random rand = new Random();
-    private int nbLoups = 2;
-    private int nbVillageois = 4;
+    private static ArrayList<Integer> idJoueursDistribues = new ArrayList<Integer>();
+    private static ArrayList<Personnage> personnages = new ArrayList<Personnage>();
+    private static Random rand = new Random();
+    private static int nbLoups = 2;
+    private static int nbVillageois = 4;
 
-    public void init(){
+    public static void init(){
 
         int[] idJoueur = {1,2,3,4,5,6};
 
@@ -29,12 +31,12 @@ public class Application {
         }
 
         for (Personnage personnage: personnages) {
-            System.out.println(personnage.getClass());
+            log.info(""+personnage.getClass());
         }
 
     }
 
-    public LoupGarou creerLoup(int[] idJoueur) {
+    public static LoupGarou creerLoup(int[] idJoueur) {
 
         LoupGarou loupGarou = null;
         int deltSize = idJoueursDistribues.size();
@@ -47,10 +49,10 @@ public class Application {
 
                 if (!personnages.isEmpty()) {
                     loupGarou = new LoupGarou(idPerso, personnages.get(personnages.size() - 1));
-                    System.out.println(idPerso + " : " + loupGarou.getClass());
+                    log.info(idPerso + " : " + loupGarou.getClass());
                 } else {
                     loupGarou = new LoupGarou(idPerso, null);
-                    System.out.println(idPerso + " : " + loupGarou.getClass());
+                    log.info(idPerso + " : " + loupGarou.getClass());
                 }
 
                 idJoueursDistribues.add(idPerso);
@@ -60,7 +62,7 @@ public class Application {
         return loupGarou;
     }
 
-    public Villageois creerVillageois(int[] idJoueur) {
+    public static Villageois creerVillageois(int[] idJoueur) {
 
         Villageois villageois = null;
         int deltSize = idJoueursDistribues.size();
@@ -73,10 +75,10 @@ public class Application {
 
                 if (!personnages.isEmpty()) {
                     villageois = new Villageois(idPerso, personnages.get(personnages.size() - 1));
-                    System.out.println(idPerso + " : " + villageois.getClass());
+                    log.info(idPerso + " : " + villageois.getClass());
                 } else {
                     villageois = new Villageois(idPerso, null);
-                    System.out.println(idPerso + " : " + villageois.getClass());
+                    log.info(idPerso + " : " + villageois.getClass());
                 }
 
                 idJoueursDistribues.add(idPerso);
@@ -84,6 +86,10 @@ public class Application {
         }
 
         return villageois;
+    }
+
+    public static void main(String[] args) {
+        init();
     }
 
 }
